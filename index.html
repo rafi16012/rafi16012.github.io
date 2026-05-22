@@ -297,6 +297,119 @@
 
   .project-link:hover { opacity: 0.7; }
 
+  /* ===== Publications ===== */
+  .pub-list { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .publication {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 1.5rem 1.75rem;
+    transition: all 0.3s;
+    box-shadow: var(--shadow);
+  }
+
+  .publication:hover {
+    transform: translateX(4px);
+    border-left-width: 5px;
+  }
+
+  .pub-type {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+
+  .pub-title {
+    font-size: 1.15rem;
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+    color: var(--text);
+  }
+
+  .pub-authors {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .pub-authors strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .pub-venue {
+    font-size: 0.9rem;
+    color: var(--text);
+    font-style: italic;
+    margin-bottom: 0.75rem;
+  }
+
+  .pub-venue .year {
+    font-style: normal;
+    color: var(--text-muted);
+    margin-left: 0.5rem;
+  }
+
+  .pub-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--border);
+  }
+
+  .pub-doi {
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    background: var(--accent-soft);
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .pub-doi:hover {
+    background: var(--accent);
+    color: white;
+  }
+
+  .pub-doi::before {
+    content: '🔗';
+    font-size: 0.8rem;
+  }
+
+  .pub-status {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+
+  .pub-status.published { color: #16a34a; border-color: #86efac; }
+  [data-theme="dark"] .pub-status.published { color: #4ade80; border-color: #166534; }
+
+  .pub-status.under-review { color: #ca8a04; border-color: #fde047; }
+  [data-theme="dark"] .pub-status.under-review { color: #facc15; border-color: #854d0e; }
+
   /* ===== Education ===== */
   .timeline { display: flex; flex-direction: column; gap: 2rem; }
 
@@ -381,12 +494,12 @@
 <nav>
   <div class="container nav-inner">
     <!-- EDIT: Change "YN" to your initials -->
-    <div class="logo">YN.</div>
+    <div class="logo">AR.</div>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
-      <a href="#education">Education</a>
+      <a href="#publications">Publications</a>
       <a href="#contact">Contact</a>
       <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
         <svg id="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -404,8 +517,8 @@
     <div class="hero-grid">
       <div>
         <div class="hero-tag fade-in">Water Resources Engineer</div>
-        <h1 class="fade-in">Hi, I'm <em>Your Name</em>.<br>Engineering for water, sustainably.</h1>
-        <p class="hero-intro fade-in">A short, friendly intro about who you are — your specialization in water resources engineering, what problems you love solving (hydrology, flood management, irrigation, water quality), and what you're working toward.</p>
+        <h1 class="fade-in">Hi, I'm <em>Abdullah Ar Rafi</em>.<br>Engineering for water, sustainably.</h1>
+        <p class="hero-intro fade-in">Water Resources Engineering graduate from BUET and currently a Research Assistant in the Geotechnical Engineering Department, Civil Engineering, BUET. My research interests lie at the crossroads of flood and river management, environmental engineering, climate change, and sustainable development. Actively seeking a Master's or PhD position to contribute to interdisciplinary research that builds climate-resilient, sustainable water systems.</p>
         <div class="hero-cta fade-in">
           <a href="#projects" class="btn btn-primary">View my work →</a>
           <a href="#contact" class="btn btn-secondary">Get in touch</a>
@@ -420,8 +533,8 @@
            3. Or leave src="" empty to show your initials as a placeholder
       -->
       <div class="profile-pic-wrap fade-in">
-        <img src="" alt="Your Name" class="profile-pic" onerror="this.style.display='none'; this.parentElement.querySelector('.initials').style.display='flex';" />
-        <div class="profile-pic initials" style="display:flex;">YN</div>
+        <img src="" alt="Abdullah Ar Rafi" class="profile-pic" onerror="this.style.display='none'; this.parentElement.querySelector('.initials').style.display='flex';" />
+        <div class="profile-pic initials" style="display:flex;">AR</div>
       </div>
     </div>
   </div>
@@ -434,14 +547,10 @@
     <div class="section-label">01 — About</div>
     <h2 class="section-title">A little about me</h2>
     <div class="about-text">
-      <p>I grew up in Bangladesh, a country shaped by its rivers, its monsoons, and the quiet, ongoing negotiation between people and water. 
-           
-     That relationship pulled me toward Water Resources Engineering long before I knew exactly what the field involved.
-           At BUET, I found a discipline that married rigorous problem-solving with questions I genuinely cared about: how do we live well alongside rivers, and how do we engineer for a climate that no longer behaves like the one our textbooks were written for?</p>
+      <p>I grew up in Bangladesh, a country shaped by its rivers, its monsoons, and the quiet, ongoing negotiation between people and water. That relationship pulled me toward Water Resources Engineering long before I knew exactly what the field involved. At BUET, I found a discipline that married rigorous problem-solving with questions I genuinely cared about: how do we live well alongside rivers, and how do we engineer for a climate that no longer behaves like the one our textbooks were written for?</p>
       <p>I currently work as a Research Assistant in BUET's Geotechnical Engineering Department, which has been an unexpected and rewarding turn. Sitting at the edge of water and soil mechanics has shown me how interconnected these fields really are — from riverbank stability and embankment failure to subsidence and groundwater dynamics. My broader interests include flood and river management, environmental engineering, climate change adaptation, and sustainable development.
 Outside of work, I enjoy listening to music, cooking and talking about innovation. I'm preparing for graduate studies and looking for a research home where I can contribute meaningfully to climate-resilient water engineering —ideally in collaboration with people who care as much about the problem as the solution.
-</p>
-    </div>
+
   </div>
 </section>
 
@@ -458,8 +567,8 @@ Outside of work, I enjoy listening to music, cooking and talking about innovatio
       <div class="skill-chip">HEC-RAS</div>
       <div class="skill-chip">HEC-HMS</div>
       <div class="skill-chip">ArcGIS / QGIS</div>
-      <div class="skill-chip">SNAP</div>
       <div class="skill-chip">GEE</div>
+      <div class="skill-chip">SNAP</div>
       <div class="skill-chip">SWMM</div>
       <div class="skill-chip">MATLAB</div>
       <div class="skill-chip">Python</div>
@@ -523,41 +632,30 @@ Outside of work, I enjoy listening to music, cooking and talking about innovatio
   </div>
 </section>
 
-<!-- ===== EDUCATION =====
-     EDIT: Add your schools, courses, or experiences below
+<!-- ===== PUBLICATIONS =====
+     EDIT: Duplicate the <article class="publication"> block for each paper.
+     Status options: "published", "under-review", or remove the badge entirely.
+     For DOI: just put the DOI number, the link will auto-format to doi.org
 -->
-<section id="education">
+<section id="publications">
   <div class="container">
-    <div class="section-label">04 — Education</div>
-    <h2 class="section-title">Academic journey</h2>
-    <div class="timeline">
+    <div class="section-label">04 — Publications</div>
+    <h2 class="section-title">Research &amp; Publications</h2>
+    <div class="pub-list">
 
-      <div class="timeline-item">
-        <div class="timeline-date">2022 — Present</div>
-        <div>
-          <div class="timeline-title">B.Sc. in Water Resources Engineering</div>
-          <div class="timeline-org">University Name</div>
-          <div class="timeline-desc">Coursework in hydrology, hydraulics, river engineering, irrigation systems, and water quality management.</div>
+      <article class="publication">
+        <span class="pub-type">Journal Article</span>
+        <h3 class="pub-title">Socioeconomic consequences of riverbank erosion and accretion along the Dhaleshwari river in Tangail district of Bangladesh</h3>
+        <p class="pub-authors"><strong>Abdullah Ar  Rafi</strong>, Md Fahim Rana,Ovi Ranjan Saha, Akramul Haque, Shrabosty Deb, Sanjay Saha Sonet &amp; Md Raiful Islam</p>
+        <p class="pub-venue">Discover Geoscience<span class="year">· 2026</span></p>
+        <div class="pub-meta">
+          <a href="https://doi.org/10.1007/s44288-026-00402-y" class="pub-doi" target="_blank">10.1007/s44288-026-00402-y</a>
+          <span class="pub-status published">Published</span>
         </div>
-      </div>
+      </article>
 
-      <div class="timeline-item">
-        <div class="timeline-date">2024</div>
-        <div>
-          <div class="timeline-title">GIS for Water Resources (Certification)</div>
-          <div class="timeline-org">Coursera / ESRI</div>
-          <div class="timeline-desc">Hands-on training in spatial analysis, watershed delineation, and floodplain mapping.</div>
-        </div>
-      </div>
 
-      <div class="timeline-item">
-        <div class="timeline-date">2020 — 2022</div>
-        <div>
-          <div class="timeline-title">Higher Secondary School Certificate</div>
-          <div class="timeline-org">School Name</div>
-          <div class="timeline-desc">Science group with focus on Mathematics and Physics.</div>
-        </div>
-      </div>
+     
 
     </div>
   </div>
@@ -570,12 +668,12 @@ Outside of work, I enjoy listening to music, cooking and talking about innovatio
   <div class="container">
     <div class="section-label" style="justify-content:center;">05 — Contact</div>
     <h2>Let's work together</h2>
-    <p>Open to internships, research collaborations, or a friendly chat about water.</p>
+    <p>Open to research collaborations, or a friendly chat about water,soil and climate.</p>
     <div class="contact-links">
-      <a href="mailto:your.email@example.com">Email</a>
-      <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
-      <a href="https://github.com/yourusername" target="_blank">GitHub</a>
-      <a href="https://researchgate.net/profile/yourname" target="_blank">ResearchGate</a>
+      <a href="mailto:abdullaharrafi012@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/abdullaharrafi12" target="_blank">LinkedIn</a>
+      <a href="https://github.com/rafi16012" target="_blank">GitHub</a>
+      <a href="https://https://www.researchgate.net/profile/Abdullah-Rafi-12" target="_blank">ResearchGate</a>
     </div>
   </div>
 </section>
@@ -583,7 +681,7 @@ Outside of work, I enjoy listening to music, cooking and talking about innovatio
 <!-- ===== FOOTER ===== -->
 <footer>
   <div class="container">
-    © 2026 Your Name · Water Resources Engineer
+    © 2026 Abdullah Ar Rafi · Water Resources Engineering Graduate
   </div>
 </footer>
 
