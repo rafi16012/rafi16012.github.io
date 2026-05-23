@@ -140,6 +140,37 @@
     background: linear-gradient(135deg, var(--accent), var(--accent-light));
     opacity: 0.15;
     animation: pulse 4s ease-in-out infinite;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Neon ring layer — only visible in dark mode */
+  .profile-pic-wrap::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  [data-theme="dark"] .profile-pic-wrap::after {
+    opacity: 1;
+    border-color: #38bdf8;
+    box-shadow:
+      0 0 8px #38bdf8,
+      0 0 18px #38bdf8,
+      0 0 32px rgba(56, 189, 248, 0.7),
+      0 0 60px rgba(56, 189, 248, 0.45),
+      inset 0 0 12px rgba(56, 189, 248, 0.4);
+    animation: neonPulse 2.8s ease-in-out infinite;
+  }
+
+  [data-theme="dark"] .profile-pic-wrap::before {
+    background: linear-gradient(135deg, #38bdf8, #7dd3fc);
+    opacity: 0.35;
+    filter: blur(12px);
   }
 
   .profile-pic {
@@ -159,11 +190,35 @@
     font-family: 'Fraunces', serif;
     font-size: 4rem;
     font-weight: 600;
+    z-index: 1;
+  }
+
+  [data-theme="dark"] .profile-pic {
+    border-color: #0d2236;
   }
 
   @keyframes pulse {
     0%, 100% { transform: scale(1); opacity: 0.15; }
     50% { transform: scale(1.05); opacity: 0.25; }
+  }
+
+  @keyframes neonPulse {
+    0%, 100% {
+      box-shadow:
+        0 0 8px #38bdf8,
+        0 0 18px #38bdf8,
+        0 0 32px rgba(56, 189, 248, 0.7),
+        0 0 60px rgba(56, 189, 248, 0.45),
+        inset 0 0 12px rgba(56, 189, 248, 0.4);
+    }
+    50% {
+      box-shadow:
+        0 0 12px #38bdf8,
+        0 0 26px #38bdf8,
+        0 0 48px rgba(56, 189, 248, 0.85),
+        0 0 80px rgba(56, 189, 248, 0.6),
+        inset 0 0 18px rgba(56, 189, 248, 0.55);
+    }
   }
 
   .btn {
@@ -208,23 +263,141 @@
 
   .about-text p + p { margin-top: 1.25rem; }
 
-  .skills-grid {
+  /* ===== SKILLS SECTION (redesigned) ===== */
+  .skills-intro {
+    color: var(--text-muted);
+    max-width: 560px;
+    margin-top: -2rem;
+    margin-bottom: 2.5rem;
+    font-size: 1rem;
+  }
+
+  .skills-categories {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 0.75rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .skill-category {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.75rem;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.35s ease;
+  }
+
+  .skill-category::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle at top right, var(--accent-soft) 0%, transparent 70%);
+    opacity: 0.6;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+
+  .skill-category:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 4px 6px rgba(10,31,51,0.05), 0 16px 40px rgba(3,105,161,0.12);
+  }
+
+  .skill-category:hover::after { opacity: 1; }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .category-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.35s ease;
+  }
+
+  .category-icon svg { width: 22px; height: 22px; }
+
+  .skill-category:hover .category-icon {
+    background: var(--accent);
+    color: white;
+    transform: rotate(-6deg) scale(1.05);
+  }
+
+  .category-title {
+    font-size: 1.15rem;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    margin-bottom: 0.15rem;
+    line-height: 1.2;
+  }
+
+  .category-sub {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    position: relative;
+    z-index: 1;
   }
 
   .skill-chip {
-    padding: 0.75rem 1rem; background: var(--bg-elevated);
-    border: 1px solid var(--border); border-radius: 6px;
-    font-size: 0.9rem; transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.85rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text);
+    transition: all 0.2s ease;
+    cursor: default;
+  }
+
+  .skill-chip .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    flex-shrink: 0;
+    transition: all 0.2s ease;
   }
 
   .skill-chip:hover {
-    border-color: var(--accent); color: var(--accent);
-    transform: translateY(-2px);
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-soft);
+    transform: translateY(-1px);
   }
 
+  .skill-chip:hover .dot {
+    background: var(--accent);
+    transform: scale(1.4);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  /* ===== PROJECTS ===== */
   .project-list { display: flex; flex-direction: column; gap: 1.5rem; }
 
   .project {
@@ -276,6 +449,7 @@
 
   .project-link:hover { opacity: 0.7; }
 
+  /* ===== PUBLICATIONS ===== */
   .pub-list { display: flex; flex-direction: column; gap: 1.5rem; }
 
   .publication {
@@ -373,6 +547,7 @@
   .pub-status.under-review { color: #ca8a04; border-color: #fde047; }
   [data-theme="dark"] .pub-status.under-review { color: #facc15; border-color: #854d0e; }
 
+  /* ===== CONTACT ===== */
   .contact-section { text-align: center; padding: 6rem 0; }
   .contact-section h2 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1rem; }
   .contact-section p { color: var(--text-muted); margin-bottom: 2.5rem; }
@@ -409,10 +584,16 @@
     text-align: center; color: var(--text-muted); font-size: 0.85rem;
   }
 
+  /* ===== RESPONSIVE ===== */
   @media (max-width: 768px) {
     .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
     .profile-pic-wrap { order: -1; width: 180px; height: 180px; }
     .profile-pic { font-size: 3rem; }
+  }
+
+  @media (max-width: 720px) {
+    .skills-categories { grid-template-columns: 1fr; }
+    .skill-category { padding: 1.5rem; }
   }
 
   @media (max-width: 640px) {
@@ -492,23 +673,95 @@
   </div>
 </section>
 
-<!-- ===== SKILLS ===== -->
+<!-- ===== SKILLS (REDESIGNED) ===== -->
 <section id="skills">
   <div class="container">
     <div class="section-label">02 — Skills</div>
     <h2 class="section-title">Technical toolkit</h2>
-    <div class="skills-grid">
-      <div class="skill-chip">Hydrology &amp; Hydraulics</div>
-      <div class="skill-chip">HEC-RAS</div>
-      <div class="skill-chip">HEC-HMS</div>
-      <div class="skill-chip">ArcGIS / QGIS</div>
-      <div class="skill-chip">GEE</div>
-      <div class="skill-chip">SNAP</div>
-      <div class="skill-chip">SWMM</div>
-      <div class="skill-chip">MATLAB</div>
-      <div class="skill-chip">Python</div>
-      <div class="skill-chip">Remote Sensing</div>
-      <div class="skill-chip">Technical Writing</div>
+    <p class="skills-intro">Tools and techniques I use to model, analyze, and communicate water systems.</p>
+
+    <div class="skills-categories">
+
+      <div class="skill-category">
+        <div class="category-header">
+          <div class="category-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="category-title">Modeling &amp; Simulation</h3>
+            <span class="category-sub">Hydraulic &amp; hydrologic analysis</span>
+          </div>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-chip"><span class="dot"></span>Hydrology &amp; Hydraulics</span>
+          <span class="skill-chip"><span class="dot"></span>HEC-RAS</span>
+          <span class="skill-chip"><span class="dot"></span>HEC-HMS</span>
+          <span class="skill-chip"><span class="dot"></span>SWMM</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="category-header">
+          <div class="category-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="category-title">GIS &amp; Remote Sensing</h3>
+            <span class="category-sub">Spatial analysis &amp; earth observation</span>
+          </div>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-chip"><span class="dot"></span>ArcGIS / QGIS</span>
+          <span class="skill-chip"><span class="dot"></span>Google Earth Engine</span>
+          <span class="skill-chip"><span class="dot"></span>SNAP</span>
+          <span class="skill-chip"><span class="dot"></span>Remote Sensing</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="category-header">
+          <div class="category-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"/>
+              <polyline points="8 6 2 12 8 18"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="category-title">Programming</h3>
+            <span class="category-sub">Computation &amp; automation</span>
+          </div>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-chip"><span class="dot"></span>Python</span>
+          <span class="skill-chip"><span class="dot"></span>MATLAB</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="category-header">
+          <div class="category-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="9" y1="13" x2="15" y2="13"/>
+              <line x1="9" y1="17" x2="15" y2="17"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="category-title">Communication</h3>
+            <span class="category-sub">Research &amp; reporting</span>
+          </div>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-chip"><span class="dot"></span>Technical Writing</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -536,7 +789,7 @@
 
       <article class="project">
         <div class="project-header">
-          <h3 class="project-title">Flood Forecasting </h3>
+          <h3 class="project-title">Flood Forecasting</h3>
           <span class="project-year">2024</span>
         </div>
         <p class="project-desc">Flood forecasting of lower Teesta River basin using HEC-HMS.</p>
@@ -548,7 +801,9 @@
         <a href="FinalProject.pdf" class="project-link" target="_blank">View Project →</a>
       </article>
 
-    
+    </div>
+  </div>
+</section>
 
 <!-- ===== PUBLICATIONS ===== -->
 <section id="publications">
@@ -560,7 +815,7 @@
       <article class="publication">
         <span class="pub-type">Journal Article</span>
         <h3 class="pub-title">Socioeconomic consequences of riverbank erosion and accretion along the Dhaleshwari river in Tangail district of Bangladesh</h3>
-        <p class="pub-authors"> Md Fahim Rana,<strong>Abdullah Ar Rafi</strong>, Ovi Ranjan Saha, Akramul Haque, Shrabosty Deb, Sanjay Saha Sonet &amp; Md Raiful Islam</p>
+        <p class="pub-authors">Md Fahim Rana, <strong>Abdullah Ar Rafi</strong>, Ovi Ranjan Saha, Akramul Haque, Shrabosty Deb, Sanjay Saha Sonet &amp; Md Raiful Islam</p>
         <p class="pub-venue">Discover Geoscience<span class="year">· 2026</span></p>
         <div class="pub-meta">
           <a href="https://doi.org/10.1007/s44288-026-00402-y" class="pub-doi" target="_blank">10.1007/s44288-026-00402-y</a>
